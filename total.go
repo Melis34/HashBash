@@ -30,7 +30,7 @@ func main() {
 
 func hashBinaryInput(binaryInput string) {
 	// Create a new process to run the binary_hasher program
-	cmd := exec.Command("./test", binaryInput)
+	cmd := exec.Command("./binaryinput", binaryInput)
 
 	// Set the output to the current terminal
 	cmd.Stdout = os.Stdout
