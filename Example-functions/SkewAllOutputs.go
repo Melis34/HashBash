@@ -3,7 +3,6 @@ package main
 import (
     "fmt"
     "regexp"
-    "strconv"
 	"strings"
 	"math/big"
 )
@@ -29,37 +28,25 @@ func main() {
 
     // Extract the last hexadecimal value
     lastHexValue := hexValues[len(hexValues)-1]
-
-    // Convert the last hexadecimal value to an integer
-    lastHexInt, err := strconv.ParseInt(lastHexValue[2:], 16, 64)
-    if err != nil {
-        fmt.Println("Error parsing hexadecimal value:", err)
-        return
-    }
+    fmt.Printf("last hash value: %s\n", lastHexValue)
 
     // Calculate the number of hexadecimal digits
     numHexDigits := totalHexLength - len(hexValues) -1 // Subtract the '0x' prefix
     // Add the count of hexadecimal digits to the last hexadecimal value
 	
-	for i:= 1; i < numHexDigits; i++ {
-		hexValue := strings.TrimPrefix(lastHexValue, "0x")
-		intValue := new(big.Int)
-		intValue.SetString(strings.TrimPrefix(hexValue, "0x"), 16)
-		if err != nil {
-			fmt.Println("Error:", err)
-			return
-		}
-		intValue.Add(intValue, big.NewInt(1))
-		if intValue.Cmp(big.NewInt(16)) == 0 {
-			intValue.SetInt64(0)
-		}
-		lastHexValue = fmt.Sprintf("0x%X", intValue)
-	}
-    lastHexInt += int64(numHexDigits)
+	for i := 0; i < numHexDigits; i++ {
+        hexValue := strings.TrimPrefix(lastHexValue, "0x")
+        intValue := new(big.Int)
+        intValue.SetString(hexValue, 16)
+        intValue.Add(intValue, big.NewInt(1))
+        intValue.Mod(intValue, big.NewInt(16)) // Ensure the result stays within 0-15 in hexadecimal
+        lastHexValue = fmt.Sprintf("0x%X", intValue)
+    }
+    
 
     // Print the results
     fmt.Printf("Original Message: %s\n", message)
-    fmt.Printf("output of hashfunction: %s\n", lastHexValue)
+    fmt.Printf("output of hashfunction: %s\n", lastHexValue)	
 }
 
 func findHexValues(input string) []string {

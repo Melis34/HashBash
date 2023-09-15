@@ -15,9 +15,31 @@ The tools work by running go build /toolname/ then use ./toolname to run tool
 ## What
 The different tools currently availible are:
 
+### Tools
 |tool|use|
 |----|-------|
 | binary input | This tool takes binary input and gives a hash back, both in binary as in a hexidecimal represitation. |
 | pad | this tool takes binary input and gives the padding that would be used in the sha256 hashfunction |
 | zeros| gives a string of zeros with a user-chosen length|
 | ones | gives a string of ones with a user-chosen length |
+
+### Examples
+
+Example|Use|Why|
+|-------|---|-----|
+| No skew hash| build with *go build NoSkewHash.go*| Aims to help prove *A* |
+| Skew hash | build with *go build NoSkewHash.go*|Aims to help prove *A*  |
+| Not all outputs | build with *go build NoSkewHash.go*|Aims to help prove *A*  |
+
+
+#### *A*
+mb = message block
+h = compression function 
+H = hash function
+O = Output
+l = length
+h(mb)=h(mb)
+h(mb)^(Ol+1)≠h(mb)
+proves 
+H:A→B 
+∃x ∈ [0,2^l)∶ x ∉ B
