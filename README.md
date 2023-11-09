@@ -27,10 +27,10 @@ The different tools currently availible are:
 
 Example|Use|Why|
 |-------|---|-----|
-| No skew hash| build with *go build NoSkewHash.go*| Aims to help prove *A* |
-| Skew hash | build with *go build NoSkewHash.go*|Aims to help prove *A*  |
-| Not all outputs | build with *go build NoSkewHash.go*|Aims to help prove *A*  |
-
+| No skew hash| build with *go build NoSkewHash.go*| Aims to help prove *[A](https://github.com/Melis34/HashBash/blob/main/README.md#a)* |
+| Skew hash | build with *go build NoSkewHash.go*|Aims to help prove *[A](https://github.com/Melis34/HashBash/blob/main/README.md#a)*  |
+| Not all outputs | build with *go build NoSkewHash.go*|Aims to help prove *[A](https://github.com/Melis34/HashBash/blob/main/README.md#a)*  |
+| Hash.go| run with *go run Hash.go* | Baseline for custom SHA256 research implementations|
 
 #### *A*
 mb = message block
