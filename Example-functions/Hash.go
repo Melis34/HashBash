@@ -1,7 +1,7 @@
  package main
 
  import (
-	 "crypto/sha256"
+	//  "crypto/sha256"
 	 "encoding/binary"
 	 "errors"
 	 "hash"
@@ -63,11 +63,11 @@
  
  // New returns a new hash.Hash computing the SHA256 checksum.
  func New() hash.Hash {
-	 if blockfunc == blockfuncStdlib {
-		 // Fallback to the standard golang implementation
-		 // if no features were found.
-		 return sha256.New()
-	 }
+	//  if blockfunc == blockfuncStdlib {
+	// 	 // Fallback to the standard golang implementation
+	// 	 // if no features were found.
+	// 	 return sha256.New()
+	//  }
  
 	 d := new(digest)
 	 d.Reset()
