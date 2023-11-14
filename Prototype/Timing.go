@@ -4,28 +4,32 @@ import (
 	"crypto/md5"
 	"fmt"
 	"math/rand"
+	"time"
 )
 
+func measureExecutionTime(f func()) time.Duration {
+	startTime := time.Now()
+
+	// Call the provided function
+	f()
+
+	// Calculate the elapsed time
+	elapsedTime := time.Since(startTime)
+	return elapsedTime
+}
+
 func main() {
-	fmt.Printf("test")
-	n := 2 //hoeveel bytes worden gecheckt
+	n := 1 //hoeveel bytes worden gecheckt
 	fmt.Println("amount of bytes checked:", n)
-	totalownmethod := 0
-	totaltraditional := 0
 	for i := 0; i < 1000; i++ {
 		startinput := hash(generateRandomBytes(10)) //Start
-
-		traditional := traditional(startinput, n)
-		own := ownmethod(startinput, n)
-		totalownmethod = totalownmethod + own
-		totaltraditional = totaltraditional + traditional
+		durationtrad := measureExecutionTime(func() { traditional(startinput, n) })
+		durationown := measureExecutionTime(func() { ownmethod(startinput, n) })
+		fmt.Println("Tradtitional time", durationtrad)
+		fmt.Println("Own time", durationown)
+		// runTimesOwn = append(runTimesOwn, duration)
+		// runTimesTrad = append(runTimesTrad, duration)
 	}
-	fmt.Println("Results for this test are as follows:")
-	fmt.Println("Total of traditional: ", totaltraditional)
-	fmt.Println("Total of ownmethod: ", totalownmethod)
-	fmt.Println("This gives an avarage of:")
-	fmt.Println("Traditional: ", totaltraditional/1000)
-	fmt.Println("Ownmethod: ", totalownmethod/1000)
 }
 
 /* func generateRandomString(length int) string {
@@ -49,35 +53,22 @@ func generateRandomBytes(length int) []byte {
 	return randomBytes
 }
 
-func traditional(input []byte, n int) int { //takes hash selects random inputs and compares them
-	result := 1
+func traditional(input []byte, n int) { //takes hash selects random inputs and compares them
 	output := hash(input)
 	collision := false
 	for collision == false {
-		result++
 		check := generateRandomBytes(32) // 2 keer zo lang dan gebruik van md5
-		result++
 		checkoutput := hash(check)
-		result++
 		if areFirstNBytesEqual(checkoutput, output, n) {
+			fmt.Println("traditional input")
+			fmt.Println("input ", input)       //original input
+			fmt.Println("first", output)       // original hash
+			fmt.Println("check", check)        //input that leads to collision
+			fmt.Println("found ", checkoutput) //output of said input
 			collision = true
 		}
 	}
-	return result
-}
-
-func areByteArraysEqual(arr1, arr2 []byte) bool {
-	if len(arr1) != len(arr2) {
-		return false
-	}
-
-	for i := 0; i < len(arr1); i++ {
-		if arr1[i] != arr2[i] {
-			return false
-		}
-	}
-
-	return true
+	return
 }
 
 func areFirstNBytesEqual(arr1, arr2 []byte, n int) bool {
@@ -94,21 +85,25 @@ func areFirstNBytesEqual(arr1, arr2 []byte, n int) bool {
 	return true
 }
 
-func ownmethod(input []byte, n int) int {
-	result := 1
+func ownmethod(input []byte, n int) {
 	output := hash(input)
+	prevhash := output
 	collision := false
+	nexthash := hash(output)
 	for collision == false {
-		result++
-		nexthash := hash(output)
-		result++
 		if areFirstNBytesEqual(nexthash, output, n) {
+			fmt.Println("own method")
+			fmt.Println("input ", input)   //original input
+			fmt.Println("first", output)   // original hash
+			fmt.Println("check", prevhash) //input that leads to collision
+			fmt.Println("found ", output)  //output of said input
 			collision = true
 		} else {
-			output = nexthash
+			prevhash = nexthash
+			nexthash = hash(nexthash)
 		}
 	}
-	return result
+	return
 }
 
 func hash(data []byte) []byte {
