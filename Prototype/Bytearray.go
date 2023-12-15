@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"crypto/md5"
+	"crypto/sha256"
 	"fmt"
 	"os"
 	"strings"
@@ -23,7 +23,7 @@ func main() {
 	}
 
 	// Hash the byte array using MD5
-	hasher := md5.New()
+	hasher := sha256.New()
 	hasher.Write(byteArray)
 	hash := hasher.Sum(nil)
 
