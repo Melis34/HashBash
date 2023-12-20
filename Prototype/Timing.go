@@ -36,7 +36,7 @@ func main() {
 	timeString := currenttime.Format("2006-01-02 15-04")
 	fmt.Println(timeString)
 
-	n := 2 //hoeveel bytes worden gecheckt
+	n := 4 //hoeveel bytes worden gecheckt
 	tofile(n, "ownmethod", timeString)
 	tofile(n, "traditional", timeString)
 	fmt.Println("amount of bytes checked:", n)
@@ -44,20 +44,20 @@ func main() {
 	var valuesown plotter.Values
 	var valuestrad plotter.Values
 
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 1000; i++ {
 		startinput := hash(generateRandomBytes(10)) //Start
 		durationtrad := measureExecutionTime(func() { traditional(startinput, n) })
 		durationown := measureExecutionTime(func() { ownmethod(startinput, n) })
 		fmt.Println("Tradtitional time", durationtrad)
 		fmt.Println("Own time", durationown)
 
-		ownmethodstring := fmt.Sprintf("%x , %d\n", startinput, durationown.Microseconds())
-		tradmethodstring := fmt.Sprintf("%x , %d\n", startinput, durationtrad.Microseconds())
+		ownmethodstring := fmt.Sprintf("%x , %d\n", startinput, durationown.Milliseconds())
+		tradmethodstring := fmt.Sprintf("%x , %d\n", startinput, durationtrad.Milliseconds())
 
 		ownfilename := fmt.Sprintf("%s%d%s", "ownmethod", n, timeString)
 		tradfilename := fmt.Sprintf("%s%d%s", "traditional", n, timeString)
-		valuesown = append(valuesown, float64(durationown.Microseconds()))
-		valuestrad = append(valuestrad, float64(durationtrad.Microseconds()))
+		valuesown = append(valuesown, float64(durationown.Milliseconds()))
+		valuestrad = append(valuestrad, float64(durationtrad.Milliseconds()))
 		writeLineToFile(ownfilename, ownmethodstring)
 		writeLineToFile(tradfilename, tradmethodstring)
 
