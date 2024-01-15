@@ -22,6 +22,8 @@ The different tools currently availible are:
 | pad | this tool takes binary input and gives the padding that would be used in the sha256 hashfunction |
 | zeros| gives a string of zeros with a user-chosen length|
 | ones | gives a string of ones with a user-chosen length |
+| Timing | Times the the diffrence between own and traditional method and makes a chart |
+
 
 ### Examples
 
@@ -31,8 +33,11 @@ Example|Use|Why|
 | Skew hash | build with *go build NoSkewHash.go*|Aims to help prove *[A](https://github.com/Melis34/HashBash/blob/main/README.md#a)*  |
 | Not all outputs | build with *go build NoSkewHash.go*|Aims to help prove *[A](https://github.com/Melis34/HashBash/blob/main/README.md#a)*  |
 | Hash.go| run with *go run Hash.go* | Baseline for custom SHA256 research implementations|
+| Timing | change the value of n to select how many bytes are checked, change first forloop to change number of results| |
 
 #### *A*
+This theory is false
+
 mb = message block
 h = compression function 
 H = hash function
@@ -43,3 +48,7 @@ h(mb)^(Ol+1)≠h(mb)
 proves 
 H:A→B 
 ∃x ∈ [0,2^l)∶ x ∉ B
+
+
+
+
