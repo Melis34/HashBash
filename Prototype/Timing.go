@@ -51,8 +51,8 @@ func main() {
 		fmt.Println("Tradtitional time", durationtrad)
 		fmt.Println("Own time", durationown)
 
-		ownmethodstring := fmt.Sprintf("%x , %d\n", startinput, durationown.Milliseconds())
-		tradmethodstring := fmt.Sprintf("%x , %d\n", startinput, durationtrad.Milliseconds())
+		ownmethodstring := fmt.Sprintf("%x , %d\n", startinput, durationown.Seconds())
+		tradmethodstring := fmt.Sprintf("%x , %d\n", startinput, durationtrad.Seconds())
 
 		ownfilename := fmt.Sprintf("%s%d%s", "ownmethod", n, timeString)
 		tradfilename := fmt.Sprintf("%s%d%s", "traditional", n, timeString)
