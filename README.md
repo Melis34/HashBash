@@ -1,5 +1,6 @@
 # HashBash
-A tool to experiment with diffrent hash functions.
+A collection of tools to experiment with diffrent hash functions. 
+Made during internship. A lot of the tools are specially made for myself and may seem a little unnecessary, but they helped me understand the SHA-256 hash function further.
 
 ## Why
 The tools are made to experiment with hash functions.
